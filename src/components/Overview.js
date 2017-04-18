@@ -13,6 +13,21 @@ import {Button} from 'react-native-elements';
 var LOGIN_EMAIL = '@AsyncStorageLogin:LoginEmail';
 var LOGIN_PASSWORD = '@AsyncStorageLogin:LoginPAssword';
 
+const christmas = {
+    "id": "98",
+    "name": "Weihnachten",
+    "date": "Dec 24",
+    "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
+    "type": "anniversary"
+  };
+const silvester = {
+    "id": "99",
+    "name": "Silvester",
+    "date": "Dec 31",
+    "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
+    "type": "anniversary"
+  };
+
 class Overview extends Component {
     constructor(props) {
         super(props);
@@ -22,13 +37,27 @@ class Overview extends Component {
     }
 
     getRestaurants() {
-        return require('./countdown.json');
+      const list = require('./countdown.json');
+      list.push(christmas,silvester);
+        return list;
     }
-
+    getDays(date, type) {
+      let now = moment();
+      if (type == "anniversary") {
+        let then = moment(date, "MMM DD");
+        if ( then.isBefore(now, 'days') ) {
+          then = then.add(1, 'year');
+        }
+        return then.diff(now, 'days');
+      } else {
+        let then = moment(date);
+        return then.diff(now, 'days');
+      }
+    }
     renderRow(countdown) {
-      var a = moment("2017-4-18");
-      var b = moment("2017-8-13");
-      const daysUntil = a.diff(b, 'days', true); // 1.5
+
+        const daysUntil = this.getDays(countdown.date, countdown.type);
+
         return (
             <Image style={{ marginBottom:10 }} source={{
                 uri: countdown.image
@@ -71,19 +100,6 @@ class Overview extends Component {
             <ScrollView style={{ paddingTop:65 }} {...this.driver.scrollViewProps}>
                 {this.getRestaurants().map(this.renderRow)}
 
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height:200
-                }}>
-                <Button onPress={this.onButtonPress.bind(this)} buttonStyle={{
-                    marginTop: 20,
-                    marginBottom: 20,
-                    marginLeft: 20,
-                    marginRight: 20
-                }} raised borderRadius={3} backgroundColor='#397af8' title='Ausloggen'/>
-                    <Text>Hello23</Text>
-                </View>
             </ScrollView>
 
         );

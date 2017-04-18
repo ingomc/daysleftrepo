@@ -1,0 +1,18 @@
+[{
+  "id": "01",
+  "name": "Rückkehr Indien",
+  "date": [2017, 8, 13],
+  "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg"
+},
+{
+  "id": "02",
+  "name": "Thailand",
+  "date": [2017, 9, 15],
+  "image": "https://shoutem.github.io/static/getting-started/restaurant-2.jpg"
+},
+{
+  "id": "03",
+  "name": "Weihnachten",
+  "date": [2017, 12, 1],
+  "image": "https://shoutem.github.io/static/getting-started/restaurant-3.jpg"
+}]

@@ -13,21 +13,6 @@ import {Button} from 'react-native-elements';
 var LOGIN_EMAIL = '@AsyncStorageLogin:LoginEmail';
 var LOGIN_PASSWORD = '@AsyncStorageLogin:LoginPAssword';
 
-const christmas = {
-    "id": "98",
-    "name": "Weihnachten",
-    "date": "Dec 24",
-    "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-    "type": "anniversary"
-  };
-const silvester = {
-    "id": "99",
-    "name": "Silvester",
-    "date": "Dec 31",
-    "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-    "type": "anniversary"
-  };
-
 class Overview extends Component {
     constructor(props) {
         super(props);
@@ -36,10 +21,13 @@ class Overview extends Component {
         this.driver = new ScrollDriver();
     }
 
+    getChristmas() {
+      const list = require('./christmas.json');
+      return list;
+    }
     getRestaurants() {
       const list = require('./countdown.json');
-      list.push(christmas,silvester);
-        return list;
+      return list;
     }
     getDays(date, type) {
       let now = moment();
@@ -99,9 +87,8 @@ class Overview extends Component {
         return (
             <ScrollView style={{ paddingTop:65 }} {...this.driver.scrollViewProps}>
                 {this.getRestaurants().map(this.renderRow)}
-
+                {this.getChristmas().map(this.renderRow)}
             </ScrollView>
-
         );
     }
 };

@@ -52,7 +52,7 @@ const loginUserSuccess = (dispatch, user) => {
 
   this._onSaveUser(user);
 
-  Actions.main();
+  Actions.main({type: "reset"});
 
 };
 

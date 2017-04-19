@@ -9,17 +9,19 @@ import Router from './Router';
 import './assets/ReactotronConfig';
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDW5YBJ3SeumGThQ7wob3_IdvCY4OTrhQg",
-      authDomain: "daysleft-163b9.firebaseapp.com",
-      databaseURL: "https://daysleft-163b9.firebaseio.com",
-      projectId: "daysleft-163b9",
-      storageBucket: "daysleft-163b9.appspot.com",
-      messagingSenderId: "23777313479"
-    };
-    firebase.initializeApp(config);
+    if (firebase.apps.length === 0) {
+        var config = {
+          apiKey: "AIzaSyDW5YBJ3SeumGThQ7wob3_IdvCY4OTrhQg",
+          authDomain: "daysleft-163b9.firebaseapp.com",
+          databaseURL: "https://daysleft-163b9.firebaseio.com",
+          projectId: "daysleft-163b9",
+          storageBucket: "daysleft-163b9.appspot.com",
+          messagingSenderId: "23777313479"
+        };
+        firebase.initializeApp(config);
+    }
   }
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));

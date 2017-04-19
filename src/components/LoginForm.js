@@ -50,17 +50,25 @@ class LoginForm extends Component {
                   inputStyle={{ width: null }}
                   borderRadius={3}
                   placeholder='max@mustermann.de'
-                  ref='forminput'
+                  ref='forminput1'
+                  keyboardType="email-address"
                   textInputRef='email'
                   value={this.props.email}
                   onChangeText={value => this.props.inputChanged({ prop: 'email', value })}
+                  onSubmitEditing={(event) => {
+                    this.refs.forminput2.focus();
+                  }}
+                  returnKeyType="next"
                 />
 
                 <FormLabel>Passwort:</FormLabel>
                 <FormInput
                 value={this.props.password}
                 onChangeText={value => this.props.inputChanged({ prop: 'password', value })}
-                inputStyle={{ width: null }} secureTextEntry borderRadius={3} placeholder='Passwort' ref='forminput' textInputRef='password'/>
+                inputStyle={{ width: null }} secureTextEntry borderRadius={3} placeholder='Passwort' ref='forminput2' textInputRef='password'
+                onSubmitEditing={this.onButtonPress.bind(this)}
+                returnKeyType="done"
+                />
 
 
                 {this.renderError()}

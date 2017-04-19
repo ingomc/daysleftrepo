@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import {Parallax, ScrollDriver} from '@shoutem/animation';
 
-import {Button} from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 var LOGIN_EMAIL = '@AsyncStorageLogin:LoginEmail';
 var LOGIN_PASSWORD = '@AsyncStorageLogin:LoginPAssword';
@@ -58,7 +58,7 @@ class Overview extends Component {
                     paddingBottom: 100
                 }}>
                     <Parallax driver={this.driver} scrollSpeed={1.2}>
-                        <Text style={styles.daysStyle}>{daysUntil} Tage</Text>
+                        <Text style={styles.daysStyle}>{''+daysUntil} Tage</Text>
                         <Text style={styles.nameStyle}>{countdown.name}</Text>
                     </Parallax>
                 </View>
@@ -83,7 +83,7 @@ class Overview extends Component {
             console.log('fail: ' + error);
         });
         this.onRemoveUser();
-        Actions.auth();
+        Actions.auth({type: "reset"});
     }
     componentDidMount() {
 
@@ -93,6 +93,19 @@ class Overview extends Component {
             <ScrollView style={{ backgroundColor:'black' }} {...this.driver.scrollViewProps}>
                 {this.getRestaurants().map(this.renderRow)}
                 {this.getChristmas().map(this.renderRow)}
+                <Button
+                  onPress={this.onButtonPress.bind(this)}
+                  buttonStyle={{
+                      marginTop: 20,
+                      marginBottom: 20,
+                      marginLeft: 20,
+                      marginRight: 20
+                  }}
+                  raised
+                  borderRadius={3}
+                  backgroundColor='#333'
+                  title='Ausloggen'
+                />
             </ScrollView>
         );
     }

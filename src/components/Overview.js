@@ -14,6 +14,8 @@ var LOGIN_EMAIL = '@AsyncStorageLogin:LoginEmail';
 var LOGIN_PASSWORD = '@AsyncStorageLogin:LoginPAssword';
 
 class Overview extends Component {
+    state: any;
+
     constructor(props) {
         super(props);
 
@@ -47,7 +49,7 @@ class Overview extends Component {
         const daysUntil = this.getDays(countdown.date, countdown.type);
 
         return (
-            <Image style={{ marginBottom:10 }} source={{
+            <Image style={{ marginTop:10 }} source={{
                 uri: countdown.image
             }} key={countdown.id}>
                 <View style={{
@@ -83,9 +85,12 @@ class Overview extends Component {
         this.onRemoveUser();
         Actions.auth();
     }
+    componentDidMount() {
+
+    }
     render() {
         return (
-            <ScrollView style={{ paddingTop:65 }} {...this.driver.scrollViewProps}>
+            <ScrollView style={{ backgroundColor:'black' }} {...this.driver.scrollViewProps}>
                 {this.getRestaurants().map(this.renderRow)}
                 {this.getChristmas().map(this.renderRow)}
             </ScrollView>
@@ -98,14 +103,14 @@ const styles = {
         color: 'white',
         fontSize: 60,
         fontWeight: 'bold',
-        textShadowOffset: {width: 0, height: 2}, textShadowRadius: 5, textShadowColor: '#000000'
+        textShadowOffset: {width: 0, height: 2}, textShadowRadius: 40, textShadowColor: '#000000'
     },
     nameStyle: {
         backgroundColor: 'transparent',
         color: 'white',
         fontWeight: 'bold',
         fontSize: 20,
-        textShadowOffset: {width: 0, height: 2}, textShadowRadius: 5, textShadowColor: '#000000'
+        textShadowOffset: {width: 0, height: 2}, textShadowRadius: 40, textShadowColor: '#000000'
     }
 };
 

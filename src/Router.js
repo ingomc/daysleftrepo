@@ -12,7 +12,7 @@ const RouterComponent = () => {
       </Scene>
 
         <Scene key="main">
-          <Scene key="overview" component={Overview} title="Daysleft" initial />
+          <Scene key="overview" component={Overview} title="Daysleft" initial hideNavBar={true} />
         </Scene>
     </Router>
   );

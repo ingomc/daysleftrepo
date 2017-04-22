@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, View, Text, ScrollView} from 'react-native';
+import { TouchableWithoutFeedback, Image, View, Text, ScrollView} from 'react-native';
 import firebase from 'firebase';
 import {AsyncStorage} from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -27,7 +27,7 @@ class Overview extends Component {
       const list = require('./christmas.json');
       return list;
     }
-    getRestaurants() {
+    getCountdowns() {
       const list = require('./countdown.json');
       return list;
     }
@@ -44,6 +44,9 @@ class Overview extends Component {
         return then.diff(now, 'days');
       }
     }
+    onImagePress() {
+      Actions.details();
+    }
     renderRow(countdown) {
 
         const daysUntil = this.getDays(countdown.date, countdown.type);
@@ -52,6 +55,7 @@ class Overview extends Component {
             <Image style={{ marginTop:10 }} source={{
                 uri: countdown.image
             }} key={countdown.id}>
+              <TouchableWithoutFeedback onPress={this.onImagePress.bind(this)}>
                 <View style={{
                     padding:20,
                     paddingTop: 100,
@@ -62,6 +66,7 @@ class Overview extends Component {
                         <Text style={styles.nameStyle}>{countdown.name}</Text>
                     </Parallax>
                 </View>
+              </TouchableWithoutFeedback>
             </Image>
         );
     }
@@ -90,8 +95,8 @@ class Overview extends Component {
     }
     render() {
         return (
-            <ScrollView style={{ backgroundColor:'black' }} {...this.driver.scrollViewProps}>
-                {this.getRestaurants().map(this.renderRow)}
+            <ScrollView style={{ backgroundColor:'black', marginTop:50 }} {...this.driver.scrollViewProps}>
+                {this.getCountdowns().map(this.renderRow)}
                 {this.getChristmas().map(this.renderRow)}
                 <Button
                   onPress={this.onButtonPress.bind(this)}

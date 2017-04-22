@@ -4,11 +4,15 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL
 } from '../actions/types';
+import moment from 'moment';
+
 
 const INITIAL_STATE = {
   email: '',
   password: '',
   user: null,
+  name: '',
+  date: moment().add(1, 'day').format("YYYY-MM-DD"),
   error: '',
   loading: false
 };
@@ -17,7 +21,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INPUT_CHANGED:
-      return { ...state, [action.payload.prop]: action.payload.value };
+      return { ...state, [action.payload.prop]: action.payload.value || '' };
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:

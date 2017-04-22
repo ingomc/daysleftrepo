@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   password: '',
   user: null,
   name: '',
+  repeated: false,
   date: moment().add(1, 'day').format("YYYY-MM-DD"),
   error: '',
   loading: false

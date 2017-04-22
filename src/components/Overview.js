@@ -51,6 +51,16 @@ class Overview extends Component {
 
         const daysUntil = this.getDays(countdown.date, countdown.type);
 
+        const getDays = function() {
+          if (daysUntil == 1) {
+            return "1 Tag";
+          }
+          else {
+            return daysUntil+" Tage";
+          }
+        }
+        const days = getDays();
+
         return (
             <Image style={{ marginTop:10 }} source={{
                 uri: countdown.image
@@ -62,7 +72,7 @@ class Overview extends Component {
                     paddingBottom: 100
                 }}>
                     <Parallax driver={this.driver} scrollSpeed={1.2}>
-                        <Text style={styles.daysStyle}>{''+daysUntil} Tage</Text>
+                        <Text style={styles.daysStyle}>{days}</Text>
                         <Text style={styles.nameStyle}>{countdown.name}</Text>
                     </Parallax>
                 </View>

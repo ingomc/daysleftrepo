@@ -21,7 +21,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INPUT_CHANGED:
-      return { ...state, [action.payload.prop]: action.payload.value || '' };
+      return { ...state, [action.payload.prop]: action.payload.value };
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:

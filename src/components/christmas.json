@@ -3,12 +3,12 @@
     "name": "Weihnachten",
     "date": "Dec 24",
     "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-    "type": "anniversary"
+    "repeated": "true"
   },
   {
       "id": "99",
       "name": "Silvester",
       "date": "Dec 31",
       "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-      "type": "anniversary"
+      "repeated": "true"
     }]

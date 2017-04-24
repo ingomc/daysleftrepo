@@ -2,7 +2,8 @@ import {
   INPUT_CHANGED,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL
+  LOGIN_USER_FAIL,
+  DAYSLEFT_CREATE
 } from '../actions/types';
 import moment from 'moment';
 
@@ -29,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE };
     case LOGIN_USER_FAIL:
       return { ...state, error: 'E-Mail oder Passwort falsch eingegeben!', password: '', loading: false };
+    case DAYSLEFT_CREATE:
+      return INITIAL_STATE;
     default:
       return state;
   }

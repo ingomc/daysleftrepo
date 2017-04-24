@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {ScrollView, Switch, View, Text, Image} from 'react-native';
-import {connect} from 'react-redux';
-import {inputChanged, loginUser} from '../actions';
+import { ActivityIndicator, ScrollView, Switch, View, Text, Image} from 'react-native';
+import { connect } from 'react-redux';
+import { inputChanged, daysleftCreate } from '../actions';
 import moment from 'moment';
 
-import {Card, Button, FormLabel, FormInput} from 'react-native-elements';
+import { Card, Button, FormLabel, FormInput } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
 
 class CountdownDetails extends Component {
@@ -68,9 +68,35 @@ class CountdownDetails extends Component {
             </View>
         );
     }
+    onButtonPress() {
+      const { name, date, repeated } = this.props;
 
-    componentDidMount() {}
-
+      this.props.daysleftCreate({ name, date, repeated });
+    }
+    renderButton() {
+      if (this.props.loading) {
+          return (<ActivityIndicator style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'transparent'
+          }} size="large"/>);
+      }
+      return (
+            <Button
+            onPress={this.onButtonPress.bind(this)}
+            buttonStyle={{
+                marginTop: 20,
+                marginBottom: 20,
+                marginLeft: 20,
+                marginRight: 20
+            }}
+            borderRadius={3}
+            backgroundColor='#397af8'
+            title='Speichern'
+          />
+      );
+    }
     render() {
         return (
             <ScrollView style={{
@@ -92,7 +118,9 @@ class CountdownDetails extends Component {
                       <Text>Jährlich wiederholend</Text>
                       <Switch onValueChange={value => this.props.inputChanged({prop: 'repeated', value})} value={this.props.repeated}/>
                     </View>
-
+                </View>
+                <View>
+                  {this.renderButton()}
                 </View>
             </ScrollView>
         );
@@ -139,10 +167,10 @@ const styles = {
        paddingBottom:10
     }
 };
-const mapStateToProps = ({auth}) => {
-    const {name, date, repeated} = auth;
+const mapStateToProps = ({ auth }) => {
+    const { name, date, repeated, loading } = auth;
 
-    return {name, date, repeated};
+    return { name, date, repeated, loading };
 };
 
-export default connect(mapStateToProps, {inputChanged})(CountdownDetails);
+export default connect(mapStateToProps, { inputChanged, daysleftCreate })(CountdownDetails);

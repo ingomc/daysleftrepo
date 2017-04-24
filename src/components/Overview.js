@@ -31,9 +31,9 @@ class Overview extends Component {
       const list = require('./countdown.json');
       return list;
     }
-    getDays(date, type) {
+    getDays(date, repeated) {
       let now = moment();
-      if (type == "anniversary") {
+      if (repeated == "true") {
         let then = moment(date, "MMM DD");
         if ( then.isBefore(now, 'days') ) {
           then = then.add(1, 'year');
@@ -49,7 +49,7 @@ class Overview extends Component {
     }
     renderRow(countdown) {
 
-        const daysUntil = this.getDays(countdown.date, countdown.type);
+        const daysUntil = this.getDays(countdown.date, countdown.repeated);
 
         const getDays = function() {
           if (daysUntil == 1) {
@@ -98,7 +98,7 @@ class Overview extends Component {
             console.log('fail: ' + error);
         });
         this.onRemoveUser();
-        Actions.auth({type: "reset"});
+        Actions.auth({repeated: "reset"});
     }
     componentDidMount() {
 

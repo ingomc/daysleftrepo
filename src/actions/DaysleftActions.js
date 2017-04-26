@@ -2,7 +2,8 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
   LOGIN_USER,
-  DAYSLEFT_CREATE
+  DAYSLEFT_CREATE,
+  DAYSLEFT_FETCH_SUCCESS
 } from './types';
 
 
@@ -23,3 +24,15 @@ export const daysleftCreate = ({ name, date, repeated }) => {
   }
 
 }
+
+
+export const daysleftFetch = () => {
+  const { currentUser } = firebase.auth();
+
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/daysleft`)
+      .on('value', snapshot => {
+        dispatch({ type: DAYSLEFT_FETCH_SUCCESS, payload: snapshot.val() });
+      });
+  };
+};

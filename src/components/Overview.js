@@ -6,6 +6,9 @@ import {Actions} from 'react-native-router-flux';
 import Reactotron from 'reactotron-react-native';
 import moment from 'moment';
 
+import { connect } from 'react-redux';
+import { daysleftFetch } from '../actions';
+
 import {Parallax, ScrollDriver} from '@shoutem/animation';
 
 import { Button } from 'react-native-elements';
@@ -100,8 +103,8 @@ class Overview extends Component {
         this.onRemoveUser();
         Actions.auth({repeated: "reset"});
     }
-    componentDidMount() {
-
+    componentWillMount() {
+      this.props.daysleftFetch();
     }
     render() {
         return (
@@ -142,4 +145,4 @@ const styles = {
     }
 };
 
-export default Overview;
+export default connect(null, { daysleftFetch } )(Overview);

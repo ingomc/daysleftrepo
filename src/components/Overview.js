@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableWithoutFeedback, Image, View, Text, ScrollView} from 'react-native';
+import { ActivityIndicator, TouchableWithoutFeedback, Image, View, Text, ScrollView} from 'react-native';
 import firebase from 'firebase';
 import _ from 'lodash';
 import {AsyncStorage} from 'react-native';
@@ -8,7 +8,7 @@ import Reactotron from 'reactotron-react-native';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
-import { daysleftFetch } from '../actions';
+import { daysleftFetch, loadingList } from '../actions';
 
 import {Parallax, ScrollDriver} from '@shoutem/animation';
 
@@ -53,6 +53,15 @@ class Overview extends Component {
     onImagePress() {
       Actions.details();
     }
+    renderList() {
+      if (this.props.loading) {
+          return (<ActivityIndicator style={{
+              flex: 1,
+              backgroundColor: 'transparent'
+          }} size="large" color="#ffffff"/>);
+      }
+      return (this.getCountdowns().map(this.renderRow));
+    }
     renderRow(countdown) {
         console.log(countdown);
         const daysUntil = this.getDays(countdown.date, countdown.repeated);
@@ -66,7 +75,6 @@ class Overview extends Component {
           }
         }
         const days = getDays();
-
         return (
             <Image style={{ marginTop:10 }} source={{
                 uri: countdown.image
@@ -77,7 +85,7 @@ class Overview extends Component {
                     paddingTop: 100,
                     paddingBottom: 100
                 }}>
-                    <Parallax driver={this.driver} scrollSpeed={1}>
+                    <Parallax driver={this.driver} scrollSpeed={1.2}>
                         <Text style={styles.daysStyle}>{days}</Text>
                         <Text style={styles.nameStyle}>{countdown.name}</Text>
                     </Parallax>
@@ -115,8 +123,8 @@ class Overview extends Component {
     render() {
       console.log(this.props.daysleft);
         return (
-            <ScrollView style={{ backgroundColor:'black', marginTop:50 }} {...this.driver.scrollViewProps}>
-                {this.getCountdowns().map(this.renderRow)}
+            <ScrollView style={{ backgroundColor:'black', marginTop:63 }} {...this.driver.scrollViewProps}>
+                {this.renderList()}
                 <Button
                   onPress={this.onButtonPress.bind(this)}
                   buttonStyle={{
@@ -155,10 +163,12 @@ const mapStateToProps = state => {
   const daysleft = _.map(state.daysleft, (val, uid) => {
     return { ...val, uid };
   });
+  const { loading } = state.loadingList;
+  console.log(loading);
 
-  return { daysleft };
+  return { daysleft, loading };
 };
 
 
 
-export default connect(mapStateToProps, { daysleftFetch } )(Overview);
+export default connect(mapStateToProps, { daysleftFetch, loadingList } )(Overview);

@@ -1,17 +1,17 @@
 import {
-  DAYSLEFT_FETCH_SUCCESS
+  LOADING
 } from '../actions/types';
 
+
 const INITIAL_STATE = {
+  loading: true
 };
-
-
 
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case DAYSLEFT_FETCH_SUCCESS:
-      return action.payload;
+    case LOADING:
+      return { ...state, loading: false };
     default:
       return state;
   }

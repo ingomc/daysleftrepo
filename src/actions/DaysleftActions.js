@@ -3,7 +3,8 @@ import { Actions } from 'react-native-router-flux';
 import {
   LOGIN_USER,
   DAYSLEFT_CREATE,
-  DAYSLEFT_FETCH_SUCCESS
+  DAYSLEFT_FETCH_SUCCESS,
+  LOADING
 } from './types';
 
 
@@ -33,6 +34,7 @@ export const daysleftFetch = () => {
     firebase.database().ref(`/users/${currentUser.uid}/daysleft`)
       .on('value', snapshot => {
         dispatch({ type: DAYSLEFT_FETCH_SUCCESS, payload: snapshot.val() });
+        dispatch({ type: LOADING });
       });
   };
 };

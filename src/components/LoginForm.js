@@ -3,7 +3,6 @@ import {View, Text, Image } from 'react-native';
 import {Card, Button, SocialIcon, FormLabel, FormInput} from 'react-native-elements';
 import { connect } from 'react-redux';
 import { inputChanged, loginUser } from '../actions';
-import { Spinner } from './common';
 
 
 class LoginForm extends Component {

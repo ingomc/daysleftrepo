@@ -1,14 +1,14 @@
 [{
     "uid": "98",
     "name": "Weihnachten",
-    "date": "Dec 24",
+    "date": "12-24",
     "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-    "repeated": "true"
+    "repeated": true
   },
   {
       "uid": "99",
       "name": "Silvester",
-      "date": "Dec 31",
+      "date": "12-31",
       "image": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg",
-      "repeated": "true"
+      "repeated": true
     }]

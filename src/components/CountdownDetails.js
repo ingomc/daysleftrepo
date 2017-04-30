@@ -49,12 +49,24 @@ class CountdownDetails extends Component {
         this.props.inputChanged({prop: 'date', value});
     }
     renderDate() {
-        const now = moment().add(1, 'day').format("YYYY-MM-DD");
-        const then = moment().add(5, 'year').format("YYYY-MM-DD");
+      let dateFormat = "";
+      let now ="";
+      let then = "";
+        if (this.props.repeated) {
+          dateFormat = "MM-DD";
+          then = moment().add(1, 'year').format(dateFormat);
+        }
+        else {
+          dateFormat = "YYYY-MM-DD";
+          then = moment().add(5, 'year').format(dateFormat);
+        }
+        console.log(this.props.repeated);
+        console.log( dateFormat );
+        now = moment().add(1, 'day').format(dateFormat);
         return (
             <View>
                 <FormLabel>Datum:</FormLabel>
-                <DatePicker style={styles.dateStyle} date={this.props.date} mode="date" placeholder="select date" format="YYYY-MM-DD" minDate={now} maxDate={then} confirmBtnText="Datum übernehmen" cancelBtnText="Abbrechen" customStyles={{
+                <DatePicker style={styles.dateStyle} date={this.props.date} mode="date" placeholder="select date" format={dateFormat} minDate={now} maxDate={then} confirmBtnText="Datum übernehmen" cancelBtnText="Abbrechen" customStyles={{
                     dateIcon: {
                         position: 'absolute',
                         left: 0,

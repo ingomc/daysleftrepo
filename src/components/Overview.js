@@ -33,14 +33,15 @@ class Overview extends Component {
     }
     getDays(date, repeated) {
       let now = moment();
-      if (repeated == "true") {
-        let then = moment(date, "MMM DD");
+      if (repeated) {
+        let then = moment(date, "MM-DD");
         if ( then.isBefore(now, 'days') ) {
           then = then.add(1, 'year');
         }
         return then.diff(now, 'days');
       } else {
         let then = moment(date);
+        then = then.add(1, 'day');
         return then.diff(now, 'days');
       }
     }
@@ -49,17 +50,18 @@ class Overview extends Component {
       let list = this.props.daysleft;
       list.push.apply(list, christmas);
       list = list.sort(function(a, b) {
-        console.log(this);
         const getDays = function(date, repeated) {
           let now = moment();
-          if (repeated == "true") {
-            let then = moment(date, "MMM DD");
+          if (repeated) {
+            let then = moment(date, "MM-DD");
             if ( then.isBefore(now, 'days') ) {
               then = then.add(1, 'year');
             }
             return then.diff(now, 'days');
           } else {
             let then = moment(date);
+            console.log(now);
+            console.log(then);
             return then.diff(now, 'days');
           }
         };
@@ -88,9 +90,9 @@ class Overview extends Component {
 
         const getDays = function() {
           if (daysUntil == 1) {
-            return "1 Tag";
+            return "Morgen";
           }
-          if (daysUntil == 1) {
+          else if (daysUntil == 0) {
             return "Heute";
           }
           else {

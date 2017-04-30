@@ -31,12 +31,6 @@ class Overview extends Component {
       const list = require('./christmas.json');
       return list;
     }
-    getCountdowns() {
-      const christmas = this.getChristmas();
-      let list = this.props.daysleft;
-      list.push.apply(list, christmas);
-      return list;
-    }
     getDays(date, repeated) {
       let now = moment();
       if (repeated == "true") {
@@ -50,6 +44,31 @@ class Overview extends Component {
         return then.diff(now, 'days');
       }
     }
+    getCountdowns() {
+      const christmas = this.getChristmas();
+      let list = this.props.daysleft;
+      list.push.apply(list, christmas);
+      list = list.sort(function(a, b) {
+        console.log(this);
+        const getDays = function(date, repeated) {
+          let now = moment();
+          if (repeated == "true") {
+            let then = moment(date, "MMM DD");
+            if ( then.isBefore(now, 'days') ) {
+              then = then.add(1, 'year');
+            }
+            return then.diff(now, 'days');
+          } else {
+            let then = moment(date);
+            return then.diff(now, 'days');
+          }
+        };
+        const lastDate = getDays(a.date, a.repeated);
+        const newDate = getDays(b.date, b.repeated);
+        return lastDate > newDate ? 1 : -1;
+      });
+      return list;
+    }
     onImagePress() {
       Actions.details();
     }
@@ -60,6 +79,7 @@ class Overview extends Component {
               backgroundColor: 'transparent'
           }} size="large" color="#ffffff"/>);
       }
+
       return (this.getCountdowns().map(this.renderRow));
     }
     renderRow(countdown) {
@@ -69,6 +89,9 @@ class Overview extends Component {
         const getDays = function() {
           if (daysUntil == 1) {
             return "1 Tag";
+          }
+          if (daysUntil == 1) {
+            return "Heute";
           }
           else {
             return daysUntil+" Tage";
